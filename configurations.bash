@@ -1,5 +1,4 @@
-# Place this file in the drive that is mapped to your local computer
-# e.g., drive "course_dir"
+# Place this file in the root of your locally mapped folder (e.g., course_dir)
 # This file is sourced automatically by .bashrc
 # It allows further ROS customization if needed without rebuilding the image
 
