@@ -38,7 +38,6 @@
     - [Connect & Control](#connect--control)
     - [Environment Settings](#environment-settings)
         - [Overriding VNC and container environment variables](#overriding-vnc-and-container-environment-variables)
-            - [Example: Overriding the VNC resolution](#example-overriding-the-vnc-resolution)
 - [Acknowledgment](#acknowledgment)
 - [Disclaimer](#disclaimer)
 
