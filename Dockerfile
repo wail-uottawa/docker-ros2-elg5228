@@ -21,7 +21,6 @@ FROM osrf/ros:humble-desktop-full as stage-original
 
 LABEL maintainer "Wail Gueaieb"
 MAINTAINER Wail Gueaieb "https://github.com/wail-uottawa/docker-ros2-elg5228"
-ENV REFRESHED_AT 2024-05-03
 
 ARG TARGETPLATFORM
 

@@ -11,6 +11,7 @@
 **Table of Contents**
 
 - [Overview](#overview)
+- [Looking Ahead](#looking-ahead)
 - [Running the Docker Image](#running-the-docker-image)
     - [Connecting to the Image by Running it on your Local Machine (Host)](#connecting-to-the-image-by-running-it-on-your-local-machine-host)
         - [Connecting Through Web Browser](#connecting-through-web-browser)
@@ -59,6 +60,18 @@ The Dockerfile is inspired by the following works: of tiryoh/ros-desktop-vnc:
 
 Most of their documentations is still valid for this image.
 
+# Looking Ahead
+
+Keep in mind the information in the following tables when reading the rest of the documentation on this page. 
+
+| Image name                    | Latest tag |
+|:------------------------------|:-----------|
+| realjsk/docker-ros2-humble-elg5228 | 20240503   |
+
+| Local drive  | Mapped drive in container  | Notes  |
+|:--|:--|:--|
+| ~/OneDrive-uOttawa/Docker-ELG5228-ROS2/course_dir  | /home/ubuntu/ros2_ws/src/course_dir  | Replace the "~/OneDrive-uOttawa/Docker-ELG5228-ROS2" part with the path to your dedicated local folder  |
+
 # Running the Docker Image
 
 ## Connecting to the Image by Running it on your Local Machine (Host)
@@ -94,7 +107,7 @@ Successfully running `docker-run.sh` (or `docker-run.bat`) takes you to a shell 
 After finishing working with the docker container, you can stop it in one of the following methods:
 * Graphically through Docker Dashboard/Desktop (if available)
 * In the same terminal where you run `docker-run.sh` (or `docker-run.bat`), which is now showing the command line within the container, type Ctrl-c. This should kill the running of the container. 
-* From the command line on your host computer by running `docker stop IMAGE_ID:tag`, where `IMAGE_ID` and `tag` are the ID and tag of the image you want to stop(e.g., `docker stop realjsk/docker-ros2-humble-elg5228:20240503`). Another way is to use the command `docker stop $(docker ps -a -q)`, which will stop *all* docker images running on your computer.
+* From the command line on your host computer by running `docker stop IMAGE_ID:tag`, where `IMAGE_ID` and `tag` are the ID and tag of the image you want to stop(e.g., `docker stop realjsk/docker-ros2-humble-elg5228:20240503`). Refer to Section [Looking Ahead](#looking-ahead "Looking Ahead") for the latest image tag. Another way is to use the command `docker stop $(docker ps -a -q)`, which will stop *all* docker images running on your computer.
 
 ## Connecting to the Image Through a uOttawa's Virtual Machine 
 <span style="color:red">**NOTE:**</span> This method of connecting to the image is only available to uOttawa affiliates. <br />
@@ -177,7 +190,7 @@ Generally, it is prefered to run the image on your local computer. However, if i
 
 * Some ROS 2 packages are installed in their own workspaces, including those of some of the robots listed in section [Installed Robots](#installed-robots).
 
-* To allow for more customization without having to rebuild the docker image, place the file `customizations.bash` in the root of the mapped drive on your host computer. Include any customizations needed in this file. The file is automatically sourced in `.bashrc` in the home folder of the docker file system. The customization inside `customizations.bash` will be in effect for the terminals launched from that moment on. To have them reflected in the already open terminals, run the command `source ~/.bashrc` in each of them. 
+* To allow for more customization without having to rebuild the docker image, place the file `configurations.bash` in the root of the mapped drive on your host computer. Include any customizations needed in this file. The file is automatically sourced in `~/.bashrc`. The customization inside `configurations.bash` will be in effect for the terminals launched from that moment on. To have them reflected in the already open terminals, run the command `source ~/.bashrc` in each of them.
 
 # Installed Robots
 The image comes loaded with pre-installed ROS 2 packages for a number of robots.
@@ -242,7 +255,7 @@ Currently, the docker image lives in a Docker Hub repository [realjsk/docker-ros
 
 	docker pull realjsk/docker-ros2-humble-elg5228:<tag>
 	
-where `<tag>` is the tag you prefer to pull. A list of available tags is found at [https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228/tags](https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228/tags). For instance, you can replace `<tag>` in the above command by `20240503`.
+where `<tag>` is the tag you prefer to pull. A list of available tags is found at [https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228/tags](https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228/tags). For instance, you can replace `<tag>` in the above command by `20240503`. Refer to Section [Looking Ahead](#looking-ahead "Looking Ahead") for the latest image tag.
 
 ## Building the Docker Image Locally
 The source files to build the docker image on a local computer are stored at the Github repository [https://github.com/wail-uottawa/docker-ros2-elg5228](https://github.com/wail-uottawa/docker-ros2-elg5228).
