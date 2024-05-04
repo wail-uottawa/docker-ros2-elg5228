@@ -5,7 +5,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/realjsk/docker-ros2-humble-elg5228)](https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228 )
 [![Docker Automated build](https://img.shields.io/docker/automated/realjsk/docker-ros2-humble-elg5228)](https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228 )
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/wail-uottawa/docker-ros2-elg5228/main)](https://github.com/wail-uottawa/docker-ros2-elg5228 )
-[![GitHub license](https://img.shields.io/github/license/wail-uottawa/docker-ros2-elg5228)](https://github.com/wail-uottawa/docker-ros2-elg5228/blob/main/LICENSE.md )
+[![GitHub license](https://img.shields.io/github/license/wail-uottawa/docker-ros2-elg5228)](https://github.com/wail-uottawa/docker-ros2-elg5228/blob/main/LICENSE )
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
