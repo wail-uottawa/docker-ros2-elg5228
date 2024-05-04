@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"  />
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"  /><meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'><style> body { box-sizing: border-box; max-width: 740px; width: 100%; margin: 40px auto; padding: 0 10px; } </style><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script><script>document.addEventListener('DOMContentLoaded', () => { document.body.classList.add('markdown-body'); document.querySelectorAll('pre[lang] > code').forEach((code) => { code.classList.add(code.parentElement.lang); }); document.querySelectorAll('pre > code').forEach((code) => { hljs.highlightBlock(code); }); });</script>
+</head>
+
+<body>
+
+<p><strong><em>Docker image with ROS 2 Humble on Ubuntu (22.04) + Gazebo + HTML5 VNC interface + several robot packages</em></strong></p>
+
+<p><strong>Maintainer:</strong> <em>Wail Gueaieb</em></p>
+
+<p><a href="https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228"><img src="https://img.shields.io/docker/pulls/realjsk/docker-ros2-humble-elg5228" alt="Docker Pulls" /></a>
+<a href="https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228"><img src="https://img.shields.io/docker/automated/realjsk/docker-ros2-humble-elg5228" alt="Docker Automated build" /></a>
+<img src="https://img.shields.io/github/last-commit/wail-uottawa/docker-ros2-elg5228/main" alt="GitHub last commit (branch)" />
+<a href="https://github.com/wail-uottawa/docker-ros2-elg5228/blob/main/LICENSE"><img src="https://img.shields.io/github/license/wail-uottawa/docker-ros2-elg5228" alt="GitHub license" /></a></p>
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#running-the-docker-image">Running the Docker Image</a>
+
+<ul>
+<li><a href="#connecting-to-the-image-by-running-it-on-your-local-machine-host">Connecting to the Image by Running it on your Local Machine (Host)</a>
+
+<ul>
+<li><a href="#connecting-through-web-browser">Connecting Through Web Browser</a></li>
+<li><a href="#stopping-the-image">Stopping the Image</a></li>
+</ul></li>
+<li><a href="#connecting-to-the-image-through-a-uottawas-virtual-machine">Connecting to the Image Through a uOttawa's Virtual Machine </a>
+
+<ul>
+<li><a href="#local-acess">Local Acess</a></li>
+<li><a href="#remote-acess-through-virtual-desktop-infrastructure-vdi">Remote Acess (Through Virtual Desktop Infrastructure (VDI))</a></li>
+<li><a href="#starting-the-virtual-machine">Starting the Virtual Machine</a></li>
+<li><a href="#startingstopping-the-docker-image-from-within-the-virtual-machine">Starting/Stopping the Docker Image from Within the Virtual Machine</a></li>
+</ul></li>
+<li><a href="#connecting-to-the-image-by-running-it-on-ontario-research--education-vcl-cloud">Connecting to the Image by Running it on Ontario Research &amp; Education VCL Cloud </a></li>
+</ul></li>
+<li><a href="#operation-workspace">Operation Workspace </a></li>
+<li><a href="#installed-robots">Installed Robots</a>
+
+<ul>
+<li><a href="#wheeled-mobile-robots">Wheeled Mobile Robots</a></li>
+<li><a href="#fixed-manipulators">Fixed Manipulators</a></li>
+</ul></li>
+<li><a href="#utilities">Utilities</a>
+
+<ul>
+<li><a href="#text-editors">Text Editors</a></li>
+<li><a href="#terminal-emulators">Terminal Emulators</a></li>
+<li><a href="#web-browsers">Web Browsers</a></li>
+<li><a href="#document-viewers">Document Viewers</a></li>
+<li><a href="#ftp-clients">FTP Clients</a></li>
+</ul></li>
+<li><a href="#getting-the-docker-image">Getting the Docker Image</a>
+
+<ul>
+<li><a href="#pulling-the-docker-image-from-docker-hub">Pulling the Docker Image from Docker Hub</a></li>
+<li><a href="#building-the-docker-image-locally">Building the Docker Image Locally</a></li>
+</ul></li>
+<li><a href="#running-the-container">Running the Container</a>
+
+<ul>
+<li><a href="#connect--control">Connect &amp; Control</a></li>
+<li><a href="#environment-settings">Environment Settings</a>
+
+<ul>
+<li><a href="#overriding-vnc-and-container-environment-variables">Overriding VNC and container environment variables</a>
+
+<ul>
+<li><a href="#example-overriding-the-vnc-resolution">Example: Overriding the VNC resolution</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#acknowledgment">Acknowledgment</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
+</ul>
+
+<!-- markdown-toc end -->
+
+<h1>Overview</h1>
+
+<p>This is a docker image to support teaching ROS-based robotic courses (including &quot;ELG 5228: Mobile Robots&quot; at the University of Ottawa) and to help researchers and hobbyists to experiment with a number of robots. It provides enough power and flexibility to cover various robotic topics (e.g., navigation, control, path planning, fixed manipulators, wheeled mobile robots, etc.) with the ease to add more as needed. It comes with the following main components:</p>
+
+<ul>
+<li>ROS 2 Humble installed on Ubuntu 22.04</li>
+<li>Gazebo 11</li>
+<li>HTML5 VNC interface to facilitate remote access</li>
+<li>ROS 2 packages of a number of robots, as detailed below in Section <a href="#installed-robots">Installed Robots</a></li>
+</ul>
+
+<p>The Dockerfile is inspired by the following works: of tiryoh/ros-desktop-vnc:</p>
+
+<ul>
+<li><a href="https://github.com/Tiryoh/docker-ros-desktop-vnc">https://github.com/Tiryoh/docker-ros-desktop-vnc</a></li>
+<li><a href="https://github.com/AtsushiSaito/docker-ubuntu-sweb">https://github.com/AtsushiSaito/docker-ubuntu-sweb</a></li>
+</ul>
+
+<p>Most of their documentations is still valid for this image.</p>
+
+<h1>Running the Docker Image</h1>
+
+<h2>Connecting to the Image by Running it on your Local Machine (Host)</h2>
+
+<p>Probably, the easiest way to run the docker image is to run the provided shell script file <code>docker-run.sh</code>, for Linux and Mac users, or <code>docker-run.bat</code>, for Windows users (or copy and paste its content), at a command line of your personal computer, while a docker server is running in the background. You may get the files <code>docker-run.sh</code> and <code>docker-run.bat</code> from the image's Github repository <a href="https://github.com/wail-uottawa/docker-ros2-elg5228">https://github.com/wail-uottawa/docker-ros2-elg5228</a>.</p>
+
+<hr />
+
+<p><span style="color:red"><strong>WARNING (Use of Volumes):</strong></span></p>
+
+<ul>
+<li>All changes made to any file/directory within the file system of a docker container are not permanent. They are lost once the container is stopped.</li>
+<li>To avoid this problem, the <code>docker-run.sh</code> (or <code>docker-run.bat</code>) script maps a local folder on your computer (i.e., host) onto another in the container file system. For instance, in the case of the provided <code>docker-run.sh</code> (or <code>docker-run.bat</code>) the folder <code>~/OneDrive-uOttawa/Docker-ELG5228-ROS2/ros2_ws</code> (or <code>/C/OneDrive-uOttawa/Docker-ELG5228-ROS2/ro2s_ws</code>) on the host system is mapped onto folder <code>/home/ubuntu/ros2_ws</code> in the docker container.</li>
+<li>It is highly recommended that you dedicate a local folder on your computer as a ROS working folder (e.g., throughout the course). It can have any name and path (for example: <code>/C/OneDrive-uOttawa/Docker-ELG5228-ROS2</code> for Windows hosts or <code>~/OneDrive-uOttawa/Docker-ELG5228-ROS2</code> for Linux and Mac hosts).</li>
+<li>To be even safer, you might want to have this folder as part of a cloud drive that is automatically synchronized on your local machine (such as Google Drive, OneDrive, etc.) as in the above examples, although this is not necessary.</li>
+<li>Inside the file <code>docker-run.sh</code> (or <code>docker-run.bat</code>), replace <code>~/OneDrive-uOttawa/Docker-ELG5228-ROS2</code> (or <code>/C/OneDrive-uOttawa/Docker-ELG5228-ROS2</code>) part with the path to your dedicated local folder. That way, each time you run the docker image through <code>docker-run.sh</code> (or <code>docker-run.bat</code>) your local dedicated folder is automatically mapped onto <code>/home/ubuntu/ros2_ws</code> in the docker container. As such, whenever you make changes on your local dedicated folder or/and on <code>/home/ubuntu/ros2_ws</code> from within the container, those changes remain permanent on the local drive and are automatically made visible from within the container at <code>/home/ubuntu/ros2_ws</code> every time you run the image.</li>
+<li>You can learn more about volumes on this designated <a href="https://docs.docker.com/storage/volumes/">docker reference page</a>.</li>
+</ul>
+
+<hr />
+
+<p><span style="color:red"><strong>WARNING (Windows Users):</strong></span> If you are running the docker image from a Windows host, please take note of the following remarks:</p>
+
+<ul>
+<li>You may not be able to run the file <code>docker-run.sh</code> as a shell script. Instead, run the file <code>docker-run.bat</code> at the DOS prompt.</li>
+<li>Note that the full path of the local folder, which you would like to map to <code>/home/ubuntu/ros2_w</code> on the docker image, must be in the format <code>/C/...</code>; for example, <code>/C/Courses/Mobile-robotics/ros2_ws</code>. Of course, you can use other drives if your folder isn't on the C drive.</li>
+<li>When you create a file in a Windows machine (e.g., <code>program.py</code>) and then you try to run a ROS command on it from inside the docker container (e.g., <code>ros2 run</code>) you may get an error message of the form &quot;<code>[...]\r</code>&quot;. This is due to the mismatch between the way Windows and Linux systems encode a carriage return (to mark the end of of a line). There are a few ways to go around this problem:
+
+<ul>
+<li>Use any of the commands described in this link [<a href="https://www.cyberciti.biz/faq/howto-unix-linux-convert-dos-newlines-cr-lf-unix-text-format/">html</a>] to convert the file to a &quot;Linux-compatible&quot; file.</li>
+<li>Create the file inside the docker container. Then you should be able to edit it from the Windows machine without a problem.</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<p><span style="color:red"><strong>NOTE:</strong></span> The first time you run the script in <code>docker-run.sh</code> (or <code>docker-run.bat</code>), it will take a relatively long time to pull the image from the docker hub (<a href="https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228">https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228</a>), due to the image's large size. However, subsequent runs should be much faster since the image will be cached locally by docker.</p>
+
+<h3>Connecting Through Web Browser</h3>
+
+<p>Successfully running <code>docker-run.sh</code> (or <code>docker-run.bat</code>) takes you to a shell command inside the docker container. However, this doesn't allow you to run graphical applications from within the container (yet). To do so, while the image is running, simply point your web browser to: <a href="http://127.0.0.1:6080">http://127.0.0.1:6080</a></p>
+
+<h3>Stopping the Image</h3>
+
+<p>After finishing working with the docker container, you can stop it in one of the following methods:</p>
+
+<ul>
+<li>Graphically through Docker Dashboard/Desktop (if available)</li>
+<li>In the same terminal where you run <code>docker-run.sh</code> (or <code>docker-run.bat</code>), which is now showing the command line within the container, type Ctrl-c. This should kill the running of the container.</li>
+<li>From the command line on your host computer by running <code>docker stop IMAGE_ID:tag</code>, where <code>IMAGE_ID</code> and <code>tag</code> are the ID and tag of the image you want to stop(e.g., <code>docker stop realjsk/docker-ros2-humble-elg5228:20240503</code>). Another way is to use the command <code>docker stop $(docker ps -a -q)</code>, which will stop <em>all</em> docker images running on your computer.</li>
+</ul>
+
+<h2>Connecting to the Image Through a uOttawa's Virtual Machine</h2>
+
+<p><span style="color:red"><strong>NOTE:</strong></span> This method of connecting to the image is only available to uOttawa affiliates. <br />
+Generally, it is prefered to run the image on your local computer. However, if it doesn't have enough processing or memory power, you can run it on a virtual machine that was specially set up by the IT team at the Faculty of Engineering. The virtual machine is running Ubuntu~20.04 and can be accessed locally or remotely, as described below.</p>
+
+<h3>Local Acess</h3>
+
+<ol>
+<li>Walk into a computer lab (e.g., STE-0110) or a teaching lab (e.g., STE-0130), but NOT an instrumentation lab.</li>
+<li>Logon to any lab computer</li>
+</ol>
+
+<h3>Remote Acess (Through Virtual Desktop Infrastructure (VDI))</h3>
+
+<ol>
+<li>Launch <strong>VMware Horizon Client</strong> (which you can access at <a href="https://uovdi.uottawa.ca"><code>https://uovdi.uottawa.ca</code></a>)</li>
+<li>Logon to the connection server <strong>vdi-genie.uottawa.ca</strong> <br />
+NB: You need to connect through a VPN if you are off-campus. More about VPN can be found at <a href="https://www.uottawa.ca/about-us/information-technology/services/internet/vpn"><code>https://www.uottawa.ca/about-us/information-technology/services/internet/vpn</code></a>.</li>
+</ol>
+
+<h3>Starting the Virtual Machine</h3>
+
+<ol>
+<li>If you want to be able to access files on the virtual machine from the local machine (the host), or vice versa, then do the following <strong>before</strong> launching the target virtual machine (<strong>Ubuntu WG</strong>):
+
+<ul>
+<li>Right-click on the desired VM and select <strong>Settings</strong>, or Open <strong>Connection -&gt; Settings</strong>, or Hit the <strong>cog wheel</strong> in the upper right corner</li>
+<li>Select <strong>Drive Sharing</strong> (in the left pane, often near the top) <br />
+NB: on a Mac, <strong>Drive Sharing</strong> is found under <strong>Preferences</strong></li>
+<li>Select the drive to be access from the virtual machine
+
+<ul>
+<li>If you you are on a personnal computer, you can
+
+<ul>
+<li>enable <strong>Share your home folder</strong> to access your home directory from the viirtual machine</li>
+<li>and/or select specific directories by clicking <strong>Add</strong> to browse to them and <strong>Open</strong> them</li>
+</ul></li>
+<li>In all cases, you can also enable <strong>Allow access to removable storage</strong> to access data from a USB key or CD</li>
+</ul></li>
+<li>Hit <strong>Apply</strong></li>
+<li>Hit <strong>OK</strong></li>
+<li>The local directories and/or devices will show up in the home folder of the virtual machine (after it is started) under <strong>tsclient</strong></li>
+</ul></li>
+<li>Double click on the target virtual machine (<strong>Ubuntu WG</strong>) to start it</li>
+</ol>
+
+<h3>Starting/Stopping the Docker Image from Within the Virtual Machine</h3>
+
+<ul>
+<li>Once inside the virtual machine, open a terminal and run the script in file <code>docker-run-vm.sh</code>.</li>
+<li>At this point, you are almost as if you are running the image from your local machine. Follow the rest of the instructions from Section
+<a href="#connecting-to-the-image-by-running-it-on-your-local-machine-host">Connecting to the Image by Running it on your Local Machine (Host)</a>).</li>
+<li>The only exception is that, in this case, drive <code>/home/ubuntu/ros2_ws</code> in the docker container is mapped to drive <code>ros2_ws</code> in the home directory in the virtual machine. You need to manually copy the files/folders you need to work with from your local machine (found under <strong>tsclient</strong> in the virtual machine as described in Section <a href="#starting-the-virtual-machine">Starting the Virtual Machine</a>) to <code>~/course_dir</code> in the virtual machine. Do NOT forget to copy them back to your local machine BEFORE terminating the running of the docker container. Remember that once the container is terminated, all the files under the file system of the container are lost permanently.</li>
+</ul>
+
+<h2>Connecting to the Image by Running it on Ontario Research &amp; Education VCL Cloud</h2>
+
+<p><span style="color:red"><strong>(This method is no longer supported by uOttawa)</strong></span> <br />
+<span style="color:red"><strong>NOTE:</strong></span> This method of connecting to the image is only available to uOttawa affiliates. <br />
+Generally, it is prefered to run the image on your local computer. However, if it doesn't have enough processing or memory power, you can run it on a virtual machine on Ontario Research &amp; Education VCL Cloud. Access to the virtual machine is achieved in a few steps, from on-campus or off-campus devices alike. Since this is a remote connection, you may experience some delay depending on the speed of your internet connection and where you are connecting from.</p>
+
+<ol>
+<li>Browse to the VCL portal: <a href="https://orec.rdc.uottawa.ca">https://orec.rdc.uottawa.ca</a></li>
+<li>Login:
+
+<ul>
+<li>Select <strong>University of Ottawa (Azure)</strong></li>
+<li>Login using your <strong>uoAccess</strong> credentials (<a href="https://it.uottawa.ca/uoaccess">https://it.uottawa.ca/uoaccess</a>)</li>
+<li>You will need to confirm your credentials using the MFA system</li>
+</ul></li>
+<li>Make a New Reservation, selecting the image: <strong>ELG5228_20210908</strong></li>
+<li>Wait for the environment to be initialized</li>
+<li>Once &quot;Pending&quot; has changed to &quot;Connect&quot;
+
+<ul>
+<li>Hit &quot;Connect&quot; to obtain information to connect to your virtual machine</li>
+<li>Take note of the <strong>IP</strong>, <strong>UserID</strong> and <strong>Password</strong> shown, as you will need them in the next step to open an SSH session</li>
+</ul></li>
+<li>Connect to the remote server using one of the following methods:
+
+<ol>
+<li>If you are connecting from a personnal computer running Windows, it is recommended that you connect to the server using <strong>MobaXTerm</strong> (<a href="https://mobaxterm.mobatek.net">https://mobaxterm.mobatek.net</a>) by initiating an SSH connection (using the <strong>IP</strong>, <strong>UserID</strong> and <strong>Password</strong> shown earllier).</li>
+<li>If you are connecting from a local machine running Linux or Mac OS, then connect to the server as follows:
+
+<ul>
+<li>Esure that &quot;X11 Forwarding&quot; is enabled by entering <code>xhost +</code> at a terminal</li>
+<li>At the same terminal, type <code>ssh -L 6901:localhost:6901 -Y UserID@IP</code> while substituting the <strong>IP</strong> and <strong>UserID</strong> shown earlier, as well as the <strong>Password</strong> when asked for it.</li>
+</ul></li>
+<li>If you are connecting from a Windows computer in one of the computer labs in uOttawa's Faculty of Engineering, you may connect to the server via Bitvise/VcXsvr as follows:
+
+<ul>
+<li>Start Menu / Utilities / VcXsrv 1.20.1.2 / XLaunch
+
+<ul>
+<li>Uncheck &quot;Native OpenGL&quot; if your ssh window dissapears on launch</li>
+</ul></li>
+<li>Start Menu / Bitvise SSH Client 8.34 / Bitvise SSH Client
+
+<ul>
+<li>(Tab:Login) Login/Host: <strong>IP</strong></li>
+<li>(Tab:Login) Authentication/Username: <strong>UserID</strong></li>
+<li>(Tab:Terminal) X11 Forwarding: <strong>Enable</strong></li>
+<li>(Tab:C2S)
+
+<ul>
+<li><strong>Enabled</strong></li>
+<li>List. Port: <strong>6901</strong></li>
+<li>Dest. Port: <strong>6901</strong></li>
+</ul></li>
+<li>Hit &quot;Login&quot; at the bottom, accept the certificate and provide the <strong>Password</strong> when prompted</li>
+</ul></li>
+</ul></li>
+</ol></li>
+<li>Once you are connected to the server on the cloud, you can launch the docker image by running the command inside the file <code>docker-run.sh</code> as a sudo command (<code>sudo docker run ...</code>)</li>
+<li>To be able to run graphical applications, connect your computer to the docker image using one of the methods explained in sections <a href="#connecting-through-web-browser">Connecting Through Web Browser</a> or <a href="#connecting-through-vnc-viewer">Connecting Through VNC Viewer</a>.</li>
+<li>Disconnecting from the virtal machine can easily be done through the graphical interface of the VCL portal (<a href="https://orec.rdc.uottawa.ca">https://orec.rdc.uottawa.ca</a>). Under &quot;Current Reservations&quot;, click the &quot;Delete Reservation&quot; icon. This is also done automatically once your session time expires.</li>
+</ol>
+
+<hr />
+
+<p><span style="color:red"><strong>WARNING:</strong></span> Connecting to the image via Ontario Research &amp; Education VCL Cloud does not allow mapping a local folder on your computer onto folder <code>/home/ros/catkin_ws/src/course_dir</code> in the docker image as it was explained in section <a href="#running-the-image">Running the Image</a>. The only way to avoid losing your work under <code>/home/ros/catkin_ws/src/course_dir</code> is to FTP all your fles/folders under this directory to your local computer BEFORE terminating the connection. This can be done using the FTP client installed on the image (see section <a href="#ftp-clients">FTP Clients</a>). Forgetting or neglecting to do so will result in the loss of all your data under that folder. This is a major disadvantage of connecting to the image via Ontario Research &amp; Education VCL Cloud, which is why this connection method should be left as a last resort.</p>
+
+<hr />
+
+<h1>Operation Workspace</h1>
+
+<ul>
+<li><p>Throughout the course, we will be building ROS 2 packages and experimenting with them. This is all done inside a ROS 2 workspace, which is referred to here as the &quot;operation workspace&quot;. It is already built and set up for you in the docker image under path__<code>/home/ubuntu/ros2_ws</code>.</p></li>
+<li><p>Some ROS 2 packages are installed in their own workspaces, including those of some of the robots listed in section <a href="#installed-robots">Installed Robots</a>.</p></li>
+<li><p>To allow for more customization without having to rebuild the docker image, place the file <code>customization.bash</code> in the mapped drive in your host computer. At the end of file <code>.bashrc</code> in the home folder of the docker file system add the line <code>source [/path/to/customization.bash]</code>, where of course you need to replace <code>[/path/to/customization.bash]</code> with the path to the file. The customization inside that file will be in effect for the terminals launched from that moment on. to have them reflected in the already open terminals, run the command <code>source ~/.bashrc</code> in each of them.</p></li>
+</ul>
+
+<h1>Installed Robots</h1>
+
+<p>The image comes loaded with pre-installed ROS 2 packages for a number of robots.</p>
+
+<h2>Wheeled Mobile Robots</h2>
+
+<ul>
+<li>Turtlebot3 [<a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/">Official page</a>]
+
+<ul>
+<li>Installed from source under its own workspace <code>/home/ubuntu/turtlebot3_ws</code> (sourced automatically in <code>~/.bashrc</code>)</li>
+<li>Details on how to run the robot in simulation can be found in the <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation">simulation page</a> of its manual</li>
+<li>The directive <code>&quot;export TURTLEBOT3_MODEL=burger&quot;</code> is already included in <code>~/.bashrc</code></li>
+<li>To change the TurtleBot3 model, modify that directive accordingly and don't forget to run <code>source ~/.bashrc</code></li>
+</ul></li>
+<li>Turtlebot4 [<a href="https://turtlebot.github.io/turtlebot4-user-manual/">Official page</a>]
+
+<ul>
+<li>Installed from source under its own workspace <code>/home/ubuntu/turtlebot4_ws</code> (sourced automatically in <code>~/.bashrc</code>)</li>
+<li>Details on how to run the robot in simulation can be found in the <a href="https://turtlebot.github.io/turtlebot4-user-manual/software/turtlebot4_simulator.html">simulation page</a> of its manual</li>
+</ul></li>
+<li>Husarion ROSbot XL [<a href="https://husarion.com">Official page</a> | <a href="https://github.com/husarion">Github</a>]
+
+<ul>
+<li>Installed from source under its own workspace <code>/home/ubuntu/rosbotxl_ws</code> (sourced automatically in <code>~/.bashrc</code>)</li>
+<li>Details on how to run the robot in simulation can be found <a href="https://github.com/husarion/rosbot_xl_ros">here</a></li>
+</ul></li>
+<li>Husarion ROSbot 2R and ROSbot 2 PRO [<a href="https://husarion.com">Official page</a> | <a href="https://github.com/husarion">Github</a>]
+
+<ul>
+<li>Installed from source under its own workspace <code>/home/ubuntu/rosbotpr2_ws</code> (sourced automatically in <code>~/.bashrc</code>)</li>
+<li>Details on how to run the robot in simulation can be found <a href="https://github.com/husarion/rosbot_ros">here</a></li>
+</ul></li>
+</ul>
+
+<h2>Fixed Manipulators</h2>
+
+<ul>
+<li>Universal Robots [<a href="https://www.universal-robots.com">Official page</a> | <a href="https://github.com/ros-industrial/universal_robot">Github</a>]
+
+<ul>
+<li>To simulate UR robots, run the command <code>ros2 launch ur_description view_ur.launch.py ur_type:=ur5e</code> or <code>ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5e launch_rviz:=true</code>, as documented in their <a href="https://docs.ros.org/en/ros2_packages/humble/api/ur_robot_driver/usage.html#usage-with-official-ur-simulator">manual</a>.</li>
+<li>The supported ur_type values are: ur3, ur3e, ur5, ur5e, ur10, ur10e, ur16e, ur20, ur30</li>
+</ul></li>
+</ul>
+
+<h1>Utilities</h1>
+
+<p>To facilitate working from within the docker image, it is loaded with a few useful utilities.</p>
+
+<h2>Text Editors</h2>
+
+<ul>
+<li>Linux' iconic text editors vi, vim, and Emacs, along with VSCodium.</li>
+</ul>
+
+<h2>Terminal Emulators</h2>
+
+<p>The image comes with a few standard Linux terminals, such as <code>XTerm</code>, <code>UXTerm</code>, and <code>Xfce Terminal</code>, which can be accessed through the <em>System</em> submenu under the <em>Applications</em> menu. However, when dealing with ROS, it might be more convenient to use multi-pane terminals. The following two are provided for this purpose. Although they offer many features, you will probably mostly be interested in adding and removing panes.</p>
+
+<ul>
+<li><a href="https://github.com/tmux/tmux">tmux</a>: You can launch it at any terminal by running the command <code>tmux</code>. A gentle introduction can be found here [<a href="https://www.ocf.berkeley.edu/~ckuehl/tmux">html</a>].</li>
+<li>The terminal emulator <a href="https://gnome-terminator.org">Terminator</a>: It allows you to add and close panes either using the mouse right button or through keyboard shortcut keys. You can find a brief tutorial at [<a href="https://www.tecmint.com/terminator-a-linux-terminal-emulator-to-manage-multiple-terminal-windows/">html</a>].</li>
+</ul>
+
+<h2>Web Browsers</h2>
+
+<ul>
+<li>Firefox</li>
+</ul>
+
+<h2>Document Viewers</h2>
+
+<ul>
+<li>Evince (document viewer; e.g., pdf, ps, djvu, tiff, dvi, and more)</li>
+<li>Viewnior (image viewer)</li>
+</ul>
+
+<h2>FTP Clients</h2>
+
+<ul>
+<li><a href="https://filezilla-project.org">FileZilla</a></li>
+</ul>
+
+<p><br /><br /></p>
+
+<hr />
+
+<p><span style="color:red"><strong>NOTE:</strong></span> The sections above are all what you need to run the docker image. The rest of the information down below provide details which are less likely to be relevant if you are no expert in docker or/and Linux. You are still encouraged to go through them but don't be alarmed if you don't understand them. In that case, the chances that you won't need them are significant.</p>
+
+<hr />
+
+<p><br /><br /></p>
+
+<h1>Getting the Docker Image</h1>
+
+<p>The docker image can be either pulled directly from Docker Hub, or built locally on your personal computer. The former method may be much more convenient.</p>
+
+<h2>Pulling the Docker Image from Docker Hub</h2>
+
+<p>Currently, the docker image lives in a Docker Hub repository <a href="https://hub.docker.com/r/realjsk/docker-ros-elg5228">realjsk/docker-ros-elg5228</a>. It can be pulled using the docker command:</p>
+
+<pre><code>docker pull realjsk/docker-ros-elg5228:&lt;tag&gt;
+</code></pre>
+
+<p>where <code>&lt;tag&gt;</code> is the tag you prefer to pull. A list of available tags is found at <a href="https://hub.docker.com/r/realjsk/docker-ros-elg5228/tags">https://hub.docker.com/r/realjsk/docker-ros-elg5228/tags</a>. For instance, you can replace <code>&lt;tag&gt;</code> in the above command by <code>20210908</code>.</p>
+
+<h2>Building the Docker Image Locally</h2>
+
+<p>The source files to build the docker image on a local computer are stored at the Github repository <a href="https://github.com/wail-uottawa/docker-ros-elg5228">https://github.com/wail-uottawa/docker-ros-elg5228</a>.</p>
+
+<ol>
+<li>Start by cloning the repository:<br />
+<code>git clone https://github.com/wail-uottawa/docker-ros-elg5228.git</code></li>
+<li>Then, cd to the directory including the file <code>Dockerfile</code> and (with the docker server running) build the image:<br />
+<code>docker build --squash -t name:&lt;tag&gt;  .</code> (note the dot at the end)<br />
+where <code>name</code> and <code>&lt;tag&gt;</code> are the name and tag you want to give to the built image.<br />
+This can also be done by editing and running the provided shell script <code>docker-build.sh</code> using the command:<br />
+<code>sh docker-build.sh</code></li>
+</ol>
+
+<h1>Running the Container</h1>
+
+<p>The container is developed under xfce-docker-container source, which makes it accessible through xfce-vnc or no-vnc (via http vnc service). In the following, it is assumed that the <code>name:&lt;tag&gt;</code> of the docker image is <code>realjsk/docker-ros-elg5228:20210908</code>. If you used a different one, please make the necessary adjustments to the proceeding commands.</p>
+
+<ul>
+<li><p>Run command with a mapping to local port <code>5901</code> (vnc protocol) and <code>6901</code> (vnc web access):</p>
+
+<p><code>docker run -d -p 5901:5901 -p 6901:6901 realjsk/docker-ros-elg5228:20210908</code></p></li>
+<li><p>Another alternative to connect to the container is to use the interactive mode <code>-it</code> and <code>bash</code></p>
+
+<p><code>docker run -it -p 5901:5901 -p 6901:6901 realjsk/docker-ros-elg5228:20210908 bash</code></p></li>
+</ul>
+
+<h2>Connect &amp; Control</h2>
+
+<p>The default username and password in the container are <code>ubuntu</code> and <code>ubuntu</code>.</p>
+
+<h2>Environment Settings</h2>
+
+<h3>Overriding VNC and container environment variables</h3>
+
+<p>The following VNC environment variables can be overwritten within the docker run command to customize the desktop environment inside the container:</p>
+
+<ul>
+<li><code>VNC_COL_DEPTH</code>, default: <code>24</code></li>
+<li><code>VNC_RESOLUTION</code>, default: <code>1920x1080</code></li>
+</ul>
+
+<h4>Example: Overriding the VNC resolution</h4>
+
+<p>Simply overwrite the value of the environment variable <code>VNC_RESOLUTION</code>. For example, in the docker run command:</p>
+
+<pre><code>docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 docker-ros-elg5228:20210908
+</code></pre>
+
+<h1>Acknowledgment</h1>
+
+<p>Credit goes primarily to the maintainers of the following projects:</p>
+
+<ul>
+<li><a href="https://github.com/Tiryoh/docker-ros-desktop-vnc">Tiryoh/docker-ros-desktop-vnc</a> - developed the base Dockerfile used for this image</li>
+<li><a href="https://github.com/ConSol/docker-headless-vnc-container">ConSol/docker-headless-vnc-container</a></li>
+</ul>
+
+<h1>Disclaimer</h1>
+
+<p>The main purpose of this repository and docker image is to facilitate instructors and researchers efforts in experimenting and conducting realistic simulations of various types of robotic systems. However, it comes with no warranty. Please use it at your own discretion.</p>
+
+<p>I am no docker expert. It is very likely that the generated docker image and the provided <code>Dockerfile</code> are by no means optimal.</p>
+
+</body>
+</html>
