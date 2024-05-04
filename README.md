@@ -69,17 +69,17 @@ Probably, the easiest way to run the docker image is to run the provided shell s
 
 <span style="color:red">**WARNING (Use of Volumes):**</span>  
 * All changes made to any file/directory within the file system of a docker container are not permanent. They are lost once the container is stopped. 
-* To avoid this problem, the `docker-run.sh` (or `docker-run.bat`) script maps a local folder on your computer (i.e., host) onto another in the container file system. For instance, in the case of the provided `docker-run.sh` (or `docker-run.bat`) the folder `~/OneDrive-uOttawa/Docker-ELG5228-ROS2/ros2_ws` (or `/C/OneDrive-uOttawa/Docker-ELG5228-ROS2/ro2s_ws`) on the host system is mapped onto folder `/home/ubuntu/ros2_ws` in the docker container. 
-* It is highly recommended that you dedicate a local folder on your computer as a ROS working folder (e.g., throughout the course). It can have any name and path (for example: `/C/OneDrive-uOttawa/Docker-ELG5228-ROS2` for Windows hosts or `~/OneDrive-uOttawa/Docker-ELG5228-ROS2` for Linux and Mac hosts). 
+* To avoid this problem, the `docker-run.sh` (or `docker-run.bat`) script maps a local folder on your computer (i.e., host) onto another in the container file system. For instance, in the case of the provided `docker-run.sh` (or `docker-run.bat`) the folder `~/OneDrive-uOttawa/Docker-ELG5228-ROS2/course_dir` (or `/C/OneDrive-uOttawa/Docker-ELG5228-ROS2/course_dir`) on the host system is mapped onto folder `/home/ubuntu/ros2_ws/src/course_dir` in the docker container. 
+* It is highly recommended that you dedicate a local folder on your computer as a ROS working folder (e.g., throughout the course). It can have any name and path (for example: `/C/path/to/course_dir` for Windows hosts or `~/path/to/course_dir` for Linux and Mac hosts). 
 * To be even safer, you might want to have this folder as part of a cloud drive that is automatically synchronized on your local machine (such as Google Drive, OneDrive, etc.) as in the above examples, although this is not necessary. 
-* Inside the file `docker-run.sh` (or `docker-run.bat`), replace `~/OneDrive-uOttawa/Docker-ELG5228-ROS2` (or `/C/OneDrive-uOttawa/Docker-ELG5228-ROS2`) part with the path to your dedicated local folder. That way, each time you run the docker image through `docker-run.sh` (or `docker-run.bat`) your local dedicated folder is automatically mapped onto `/home/ubuntu/ros2_ws` in the docker container. As such, whenever you make changes on your local dedicated folder or/and on `/home/ubuntu/ros2_ws` from within the container, those changes remain permanent on the local drive and are automatically made visible from within the container at `/home/ubuntu/ros2_ws` every time you run the image. 
+* Inside the file `docker-run.sh` (or `docker-run.bat`), replace `~/OneDrive-uOttawa/Docker-ELG5228-ROS2` (or `/C/OneDrive-uOttawa/Docker-ELG5228-ROS2`) part with the path to your dedicated local folder. That way, each time you run the docker image through `docker-run.sh` (or `docker-run.bat`) your local dedicated folder is automatically mapped onto `/home/ubuntu/ros2_ws/src/course_dir` in the docker container. As such, whenever you make changes on your local dedicated folder or/and on `/home/ubuntu/ros2_ws/src/course_dir` from within the container, those changes remain permanent on the local drive and are automatically made visible from within the container at `/home/ubuntu/ros2_ws/src/course_dir` every time you run the image. 
 * You can learn more about volumes on this designated [docker reference page](https://docs.docker.com/storage/volumes/).
 
 ---
 
 <span style="color:red">**WARNING (Windows Users):**</span> If you are running the docker image from a Windows host, please take note of the following remarks:
 * You may not be able to run the file `docker-run.sh` as a shell script. Instead, run the file `docker-run.bat` at the DOS prompt. 
-* Note that the full path of the local folder, which you would like to map to `/home/ubuntu/ros2_w` on the docker image, must be in the format `/C/...`; for example, `/C/Courses/Mobile-robotics/ros2_ws`. Of course, you can use other drives if your folder isn't on the C drive. 
+* Note that the full path of the local folder, which you would like to map to `/home/ubuntu/ros2_ws/src/course_dir` on the docker image, must be in the format `/C/...`; for example, `/C/Courses/Mobile-robotics/ros2_ws/src/course_dir`. Of course, you can use other drives if your folder isn't on the C drive. 
 * When you create a file in a Windows machine (e.g., `program.py`) and then you try to run a ROS command on it from inside the docker container (e.g., `ros2 run`) you may get an error message of the form "`[...]\r`". This is due to the mismatch between the way Windows and Linux systems encode a carriage return (to mark the end of of a line). There are a few ways to go around this problem: 
 	* Use any of the commands described in this link [[html](https://www.cyberciti.biz/faq/howto-unix-linux-convert-dos-newlines-cr-lf-unix-text-format/)] to convert the file to a "Linux-compatible" file.
 	* Create the file inside the docker container. Then you should be able to edit it from the Windows machine without a problem. 
@@ -129,7 +129,7 @@ Generally, it is prefered to run the image on your local computer. However, if i
 * Once inside the virtual machine, open a terminal and run the script in file `docker-run-vm.sh`. 
 * At this point, you are almost as if you are running the image from your local machine. Follow the rest of the instructions from Section
 [Connecting to the Image by Running it on your Local Machine (Host)](#connecting-to-the-image-by-running-it-on-your-local-machine-host)).
-* The only exception is that, in this case, drive `/home/ubuntu/ros2_ws` in the docker container is mapped to drive `ros2_ws` in the home directory in the virtual machine. You need to manually copy the files/folders you need to work with from your local machine (found under **tsclient** in the virtual machine as described in Section [Starting the Virtual Machine](#starting-the-virtual-machine)) to `~/course_dir` in the virtual machine. Do NOT forget to copy them back to your local machine BEFORE terminating the running of the docker container. Remember that once the container is terminated, all the files under the file system of the container are lost permanently. 
+* The only exception is that, in this case, drive `/home/ubuntu/ros2_ws/src/course_dir` in the docker container is mapped to drive `course_dir` in the home directory in the virtual machine. You need to manually copy the files/folders you need to work with from your local machine (found under **tsclient** in the virtual machine as described in Section [Starting the Virtual Machine](#starting-the-virtual-machine)) to `~/course_dir` in the virtual machine. Do NOT forget to copy them back to your local machine BEFORE terminating the running of the docker container. Remember that once the container is terminated, all the files under the file system of the container are lost permanently. 
 
 ## Connecting to the Image by Running it on Ontario Research & Education VCL Cloud 
 <span style="color:red">**(This method is no longer supported by uOttawa)**</span> <br />
@@ -141,7 +141,7 @@ Generally, it is prefered to run the image on your local computer. However, if i
 	* Select **University of Ottawa (Azure)**
 	* Login using your **uoAccess** credentials ([https://it.uottawa.ca/uoaccess](https://it.uottawa.ca/uoaccess))
 	* You will need to confirm your credentials using the MFA system 
-3. Make a New Reservation, selecting the image: **ELG5228_20210908**
+3. Make a New Reservation, selecting the image: **ELG5228_20240503**
 4. Wait for the environment to be initialized
 5. Once "Pending" has changed to "Connect"
 	* Hit "Connect" to obtain information to connect to your virtual machine 
@@ -178,7 +178,7 @@ Generally, it is prefered to run the image on your local computer. However, if i
 
 * Some ROS 2 packages are installed in their own workspaces, including those of some of the robots listed in section [Installed Robots](#installed-robots).
 
-* To allow for more customization without having to rebuild the docker image, place the file `customization.bash` in the mapped drive in your host computer. At the end of file `.bashrc` in the home folder of the docker file system add the line `source [/path/to/customization.bash]`, where of course you need to replace `[/path/to/customization.bash]` with the path to the file. The customization inside that file will be in effect for the terminals launched from that moment on. to have them reflected in the already open terminals, run the command `source ~/.bashrc` in each of them. 
+* To allow for more customization without having to rebuild the docker image, place the file `customizations.bash` in the root of the mapped drive on your host computer. Include any customizations needed in this file. The file is automatically sourced in `.bashrc` in the home folder of the docker file system. The customization inside `customizations.bash` will be in effect for the terminals launched from that moment on. To have them reflected in the already open terminals, run the command `source ~/.bashrc` in each of them. 
 
 # Installed Robots
 The image comes loaded with pre-installed ROS 2 packages for a number of robots.
@@ -239,17 +239,17 @@ The image comes with a few standard Linux terminals, such as `XTerm`, `UXTerm`, 
 The docker image can be either pulled directly from Docker Hub, or built locally on your personal computer. The former method may be much more convenient. 
 
 ## Pulling the Docker Image from Docker Hub
-Currently, the docker image lives in a Docker Hub repository [realjsk/docker-ros-elg5228](https://hub.docker.com/r/realjsk/docker-ros-elg5228). It can be pulled using the docker command:
+Currently, the docker image lives in a Docker Hub repository [realjsk/docker-ros2-humble-elg5228](https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228). It can be pulled using the docker command:
 
-	docker pull realjsk/docker-ros-elg5228:<tag>
+	docker pull realjsk/docker-ros2-humble-elg5228:<tag>
 	
-where `<tag>` is the tag you prefer to pull. A list of available tags is found at [https://hub.docker.com/r/realjsk/docker-ros-elg5228/tags](https://hub.docker.com/r/realjsk/docker-ros-elg5228/tags). For instance, you can replace `<tag>` in the above command by `20210908`.
+where `<tag>` is the tag you prefer to pull. A list of available tags is found at [https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228/tags](https://hub.docker.com/r/realjsk/docker-ros2-humble-elg5228/tags). For instance, you can replace `<tag>` in the above command by `20240503`.
 
 ## Building the Docker Image Locally
-The source files to build the docker image on a local computer are stored at the Github repository [https://github.com/wail-uottawa/docker-ros-elg5228](https://github.com/wail-uottawa/docker-ros-elg5228).
+The source files to build the docker image on a local computer are stored at the Github repository [https://github.com/wail-uottawa/docker-ros2-elg5228](https://github.com/wail-uottawa/docker-ros2-elg5228).
 
 1. Start by cloning the repository:  
-   `git clone https://github.com/wail-uottawa/docker-ros-elg5228.git`
+   `git clone https://github.com/wail-uottawa/docker-ros2-elg5228.git`
 2. Then, cd to the directory including the file `Dockerfile` and (with the docker server running) build the image:  
    `docker build --squash -t name:<tag>  .` (note the dot at the end)  
    where `name` and `<tag>` are the name and tag you want to give to the built image.  
@@ -257,15 +257,6 @@ The source files to build the docker image on a local computer are stored at the
    `sh docker-build.sh`
 
 # Running the Container
-The container is developed under xfce-docker-container source, which makes it accessible through xfce-vnc or no-vnc (via http vnc service). In the following, it is assumed that the `name:<tag>` of the docker image is `realjsk/docker-ros-elg5228:20210908`. If you used a different one, please make the necessary adjustments to the proceeding commands.
-
-- Run command with a mapping to local port `5901` (vnc protocol) and `6901` (vnc web access):
-
-      `docker run -d -p 5901:5901 -p 6901:6901 realjsk/docker-ros-elg5228:20210908`
-
-- Another alternative to connect to the container is to use the interactive mode `-it` and `bash`
-      
-      `docker run -it -p 5901:5901 -p 6901:6901 realjsk/docker-ros-elg5228:20210908 bash`
 
 ## Connect & Control
 The default username and password in the container are `ubuntu` and `ubuntu`.
@@ -277,10 +268,7 @@ The following VNC environment variables can be overwritten within the docker run
 * `VNC_COL_DEPTH`, default: `24`
 * `VNC_RESOLUTION`, default: `1920x1080`
 
-#### Example: Overriding the VNC resolution
-Simply overwrite the value of the environment variable `VNC_RESOLUTION`. For example, in the docker run command:
-
-    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 docker-ros-elg5228:20210908
+For example, you can include `-e VNC_RESOLUTION=800x600` in the `docker run` command. 
 
 # Acknowledgment
 Credit goes primarily to the maintainers of the following projects:
