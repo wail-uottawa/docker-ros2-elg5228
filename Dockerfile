@@ -10,8 +10,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # 
-# This Dockerfile is based on https://github.com/AtsushiSaito/docker-ubuntu-sweb
-# which is released under the Apache-2.0 license.
+# This Dockerfile is based on
+# https://github.com/AtsushiSaito/docker-ubuntu-sweb
+# and
+# https://github.com/Tiryoh/docker-ros-desktop-vnc
+# which are released under the Apache-2.0 license.
 
 # FROM ubuntu:jammy-20240227 as stage-original
 FROM osrf/ros:humble-desktop-full as stage-original
@@ -31,6 +34,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     libglu1-mesa-dev \
     nano \
+    evince \
+    viewnior \
+    filezilla \
     ruby-dev \
     tmux \
     wget \

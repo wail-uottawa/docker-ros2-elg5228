@@ -77,6 +77,7 @@ echo "export TURTLEBOT3_MODEL=burger" >> $BASHRC_PATH
 grep -F "source $TURTLEBOT4_WS/install/setup.bash" $BASHRC_PATH || echo "source $TURTLEBOT4_WS/install/setup.bash" >> $BASHRC_PATH
 grep -F "source $ROSBOTXL_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROSBOTXL_WS/install/setup.bash" >> $BASHRC_PATH
 grep -F "source $ROSBOTPR2_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROSBOTPR2_WS/install/setup.bash" >> $BASHRC_PATH
+grep -F "source $ROS2_WS/src/course_dir/configurations.bash" $BASHRC_PATH || echo "source $ROS2_WS/src/course_dir/configurations.bash" >> $BASHRC_PATH
 #
 # A few aliases
 echo '### Aliases' >> $BASHRC_PATH
