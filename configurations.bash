@@ -19,3 +19,9 @@
 #
 # Enable the SICK LMS1XX LIDAR on Husky
 # export HUSKY_LMS1XX_ENABLED=true
+
+
+### Setting up colcon_cd
+# https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export _colcon_cd_root=/opt/ros/humble/
