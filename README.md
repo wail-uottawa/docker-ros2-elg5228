@@ -23,6 +23,7 @@
         - [Starting/Stopping the Docker Image from Within the Virtual Machine](#startingstopping-the-docker-image-from-within-the-virtual-machine)
     - [Connecting to the Image by Running it on Ontario Research & Education VCL Cloud ](#connecting-to-the-image-by-running-it-on-ontario-research--education-vcl-cloud)
 - [Operation Workspace ](#operation-workspace)
+    - [File configurations.bash](#file-configurationsbash)
 - [Installed Robots](#installed-robots)
     - [Wheeled Mobile Robots](#wheeled-mobile-robots)
     - [Fixed Manipulators](#fixed-manipulators)
