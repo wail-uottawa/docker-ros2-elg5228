@@ -115,33 +115,24 @@ Generally, it is prefered to run the image on your local computer. However, if i
 
 ### Local Acess
 1. Walk into a computer lab (e.g., STE-0110) or a teaching lab (e.g., STE-0130), but NOT an instrumentation lab. 
-2. Logon to any lab computer 
+2. Logon to any lab computer. Use your uOttawa credentials to login to the VDI server. 
 
 ### Remote Acess (Through Virtual Desktop Infrastructure (VDI))
-1. Launch **VMware Horizon Client** (which you can access at [`https://uovdi.uottawa.ca`](https://uovdi.uottawa.ca))
-2. Logon to the connection server **vdi-genie.uottawa.ca** <br />
-    NB: You need to connect through a VPN if you are off-campus. More about VPN can be found at [`https://www.uottawa.ca/about-us/information-technology/services/internet/vpn`](https://www.uottawa.ca/about-us/information-technology/services/internet/vpn). 
+1. Launch **VMware Horizon Client** (which you can access at [`https://uolabsplusvdi.uottawa.ca`](https://uolabsplusvdi.uottawa.ca))
+  * NB: You need to connect through a VPN if you are off-campus. More about VPN can be found at [`https://www.uottawa.ca/about-us/information-technology/services/internet/vpn`](https://www.uottawa.ca/about-us/information-technology/services/internet/vpn).
+  * If you choose to connect through HTML Access, use your uOttawa credentials to login to the VDI server
+  * If you choose to connect through the client, connect to VDI server **uolabsplusvdi.uottawa.ca** 
 
 ### Starting the Virtual Machine
-1. If you want to be able to access files on the virtual machine from the local machine (the host), or vice versa, then do the following **before** launching the target virtual machine (**Ubuntu WG**):
-	* Right-click on the desired VM and select **Settings**, or Open **Connection -> Settings**, or Hit the **cog wheel** in the upper right corner
-	* Select **Drive Sharing** (in the left pane, often near the top) <br />
-    NB: on a Mac, **Drive Sharing** is found under **Preferences**
-	* Select the drive to be access from the virtual machine 
-		* If you you are on a personnal computer, you can
-			* enable **Share your home folder** to access your home directory from the viirtual machine 
-			* and/or select specific directories by clicking **Add** to browse to them and **Open** them
-		* In all cases, you can also enable **Allow access to removable storage** to access data from a USB key or CD
-	* Hit **Apply**
-	* Hit **OK**
-	* The local directories and/or devices will show up in the home folder of the virtual machine (after it is started) under **tsclient**
-2. Double click on the target virtual machine (**Ubuntu WG**) to start it 
+* Double click on the target virtual machine (**Ubuntu ROS**) to start it
+* Students should have access to their network drive on virtual machine (**Ubuntu ROS**) from within the directory `~/Shared` (folder `Shared` under the home directory)
 
 ### Starting/Stopping the Docker Image from Within the Virtual Machine
-* Once inside the virtual machine, open a terminal and run the script in file `docker-run-vm.sh`. 
+* Once inside the virtual machine, open a terminal and run the command `newgrp docker`
+* In the same terminal, run the script in file `docker-run-vm.sh`, which you may copy or download from this github repository 
 * At this point, you are almost as if you are running the image from your local machine. Follow the rest of the instructions from Section
 [Connecting to the Image by Running it on your Local Machine (Host)](#connecting-to-the-image-by-running-it-on-your-local-machine-host)).
-* The only exception is that, in this case, drive `/home/ubuntu/ros2_ws/src/course_dir` in the docker container is mapped to drive `course_dir` in the home directory in the virtual machine. You need to manually copy the files/folders you need to work with from your local machine (found under **tsclient** in the virtual machine as described in Section [Starting the Virtual Machine](#starting-the-virtual-machine)) to `~/course_dir` in the virtual machine. Do NOT forget to copy them back to your local machine BEFORE terminating the running of the docker container. Remember that once the container is terminated, all the files under the file system of the container are lost permanently. 
+* The only exception is that, in this case, drive `/home/ubuntu/ros2_ws/src/course_dir` in the docker container is mapped to drive `course_dir` in the home directory in the virtual machine. You need to manually copy the files/folders you need to work with from your local machine. Do NOT forget to copy them back to your local machine BEFORE terminating the running of the docker container. Remember that once the container is terminated, all the files under the file system of the container are lost permanently. 
 
 ## Connecting to the Image by Running it on Ontario Research & Education VCL Cloud 
 <span style="color:red">**(This method is no longer supported by uOttawa)**</span> <br />
