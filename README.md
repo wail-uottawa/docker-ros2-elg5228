@@ -181,7 +181,8 @@ Generally, it is prefered to run the image on your local computer. However, if i
 
 * Some ROS 2 packages are installed in their own workspaces, including those of some of the robots listed in section [Installed Robots](#installed-robots).
 
-* To allow for more customization without having to rebuild the docker image, place the file `configurations.bash` in the root of the mapped drive on your host computer. Include any customizations needed in this file. The file is automatically sourced in `~/.bashrc`. The customization inside `configurations.bash` will be in effect for the terminals launched from that moment on. To have them reflected in the already open terminals, run the command `source ~/.bashrc` in each of them.
+## File configurations.bash
+To allow for more customization without having to rebuild the docker image, place the file `configurations.bash` (which you may download from this github repository) in the root of the mapped drive on your host computer. Include any customizations needed in this file. The file is automatically sourced in `~/.bashrc`. The customization inside `configurations.bash` will be in effect for the terminals launched from that moment on. To have them reflected in the already open terminals, run the command `source ~/.bashrc` in each of them.
 
 # Installed Robots
 The image comes loaded with pre-installed ROS 2 packages for a number of robots.
