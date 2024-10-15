@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo docker run -it --rm --privileged --name docker-ros2-humble-elg5228 \
+docker run -it --rm --privileged --name docker-ros2-humble-elg5228 \
        -p 6080:80 \
        --security-opt seccomp=unconfined \
        --shm-size=512m \
