@@ -28,7 +28,6 @@ export _colcon_cd_root=/opt/ros/humble/
 
 ### Aliases
 alias ros2pkgcreate="ros2 pkg create --build-type ament_python --license Apache-2.0"
-alias rosdepsrc="rosdep install -i --from-path src --rosdistro humble -y"
 
 # enable color support of ls and also add handy aliases
 # https://askubuntu.com/questions/17299/what-do-the-different-colors-mean-in-ls
