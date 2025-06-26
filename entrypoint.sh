@@ -73,10 +73,14 @@ grep -F "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" $BAS
 echo '### Added by w.g.' >> $BASHRC_PATH
 grep -F "source $ROS2_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROS2_WS/install/setup.bash" >> $BASHRC_PATH
 grep -F "source $TURTLEBOT3_WS/install/setup.bash" $BASHRC_PATH || echo "source $TURTLEBOT3_WS/install/setup.bash" >> $BASHRC_PATH
+grep -F "source /usr/share/gazebo/setup.sh" $BASHRC_PATH || echo "source /usr/share/gazebo/setup.sh" >> $BASHRC_PATH  # For turtlebot3 to spawn in Gazebo
 echo "export TURTLEBOT3_MODEL=burger" >> $BASHRC_PATH
 grep -F "source $TURTLEBOT4_WS/install/setup.bash" $BASHRC_PATH || echo "source $TURTLEBOT4_WS/install/setup.bash" >> $BASHRC_PATH
-grep -F "source $ROSBOTXL_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROSBOTXL_WS/install/setup.bash" >> $BASHRC_PATH
-grep -F "source $ROSBOTPR2_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROSBOTPR2_WS/install/setup.bash" >> $BASHRC_PATH
+# grep -F "source $ROSBOTXL_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROSBOTXL_WS/install/setup.bash" >> $BASHRC_PATH
+grep -F "source $ROSBOT_WS/install/setup.bash" $BASHRC_PATH || echo "source $ROSBOT_WS/install/setup.bash" >> $BASHRC_PATH
+grep -F "source $TIAGO_WS/install/setup.bash" $BASHRC_PATH || echo "source $TIAGO_WS/install/setup.bash" >> $BASHRC_PATH
+grep -F "source $FRANKA_WS/install/setup.bash" $BASHRC_PATH || echo "source $FRANKA_WS/install/setup.bash" >> $BASHRC_PATH
+grep -F "source $DOOSAN_WS/install/setup.bash" $BASHRC_PATH || echo "source $DOOSAN_WS/install/setup.bash" >> $BASHRC_PATH
 grep -F "source $ROS2_WS/src/course_dir/configurations.bash" $BASHRC_PATH || echo "source $ROS2_WS/src/course_dir/configurations.bash" >> $BASHRC_PATH
 #
 # A few aliases

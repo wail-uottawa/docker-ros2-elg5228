@@ -21,10 +21,16 @@
 # export HUSKY_LMS1XX_ENABLED=true
 
 
+### DDS
+# export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+
 ### Setting up colcon_cd
 # https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/humble/
+
 
 ### Aliases
 alias ros2pkgcreate="ros2 pkg create --build-type ament_python --license Apache-2.0"

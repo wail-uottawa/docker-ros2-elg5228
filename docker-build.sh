@@ -5,4 +5,6 @@
 
 # docker build --squash --target stage-finalization -t realjsk/docker-ros2-humble-elg5228:20240503 --no-cache  .
 
-docker buildx build --platform=linux/amd64 --progress=plain  -t realjsk/docker-ros2-humble-elg5228:20240503  --no-cache  .
+# docker buildx build --platform=linux/amd64 --progress=plain --target stage-finalization  -t realjsk/docker-ros2-humble-elg5228:20250616  --no-cache  .
+
+docker buildx build --platform=linux/amd64 --progress=plain --target stage-finalization  -t realjsk/docker-ros2-humble-elg5228:20250616   .

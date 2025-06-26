@@ -50,7 +50,8 @@
 
 This is a docker image to support teaching ROS-based robotic courses (including "ELG 5228: Mobile Robots" at the University of Ottawa) and to help researchers and hobbyists to experiment with a number of robots. It provides enough power and flexibility to cover various robotic topics (e.g., navigation, control, path planning, fixed manipulators, wheeled mobile robots, etc.) with the ease to add more as needed. It comes with the following main components:
 * ROS 2 Humble installed on Ubuntu 22.04
-* Gazebo 11
+* Gazebo 11 (classic)
+* Gazebo Fortress
 * HTML5 VNC interface to facilitate remote access
 * ROS 2 packages of a number of robots, as detailed below in Section [Installed Robots](#installed-robots)
 
@@ -59,7 +60,7 @@ The Dockerfile is inspired by the following works: of tiryoh/ros-desktop-vnc:
 * [https://github.com/Tiryoh/docker-ros-desktop-vnc](https://github.com/Tiryoh/docker-ros-desktop-vnc)
 * [https://github.com/AtsushiSaito/docker-ubuntu-sweb](https://github.com/AtsushiSaito/docker-ubuntu-sweb)
 
-Most of their documentations is still valid for this image.
+Most of their documentation is still valid for this image.
 
 # Looking Ahead
 
@@ -67,7 +68,7 @@ Keep in mind the information in the following tables when reading the rest of th
 
 | Image name                    | Latest tag |
 |:------------------------------|:-----------|
-| realjsk/docker-ros2-humble-elg5228 | 20240503   |
+| realjsk/docker-ros2-humble-elg5228 | 20250616   |
 
 | Local drive  | Mapped drive in container  | Notes  |
 |:--|:--|:--|
@@ -197,23 +198,35 @@ The image comes loaded with pre-installed ROS 2 packages for a number of robots.
 * Turtlebot4 [[Official page](https://turtlebot.github.io/turtlebot4-user-manual/)] 
     * Installed from source under its own workspace `/home/ubuntu/turtlebot4_ws` (sourced automatically in `~/.bashrc`)
     * Details on how to run the robot in simulation can be found in the [simulation page](https://turtlebot.github.io/turtlebot4-user-manual/software/turtlebot4_simulator.html) of its manual
-* Husarion ROSbot XL [[Official page](https://husarion.com) | [Github](https://github.com/husarion)]
-    * Installed from source under its own workspace `/home/ubuntu/rosbotxl_ws` (sourced automatically in `~/.bashrc`)
-    * Details on how to run the robot in simulation can be found [here](https://github.com/husarion/rosbot_xl_ros)
-* Husarion ROSbot 2R and ROSbot 2 PRO [[Official page](https://husarion.com) | [Github](https://github.com/husarion)]
-    * Installed from source under its own workspace `/home/ubuntu/rosbotpr2_ws` (sourced automatically in `~/.bashrc`)
+* Husarion ROSbot 3, ROSbot 3 PRO and ROSbot XL [[Official page](https://husarion.com) | [Github](https://github.com/husarion)]
+    * Installed from source under its own workspace `/home/ubuntu/rosbot_ws` (sourced automatically in `~/.bashrc`)
     * Details on how to run the robot in simulation can be found [here](https://github.com/husarion/rosbot_ros)
+* Neobotix Robot Series [[Official page](https://neobotix-docs.de) | [ROS 2 information](https://neobotix-docs.de/ros)]
+    * Installed in the default (core) workspace under `/opt/ros/humble`.
+    * Details on how to simulate any Neobotix robot in Classic Gazebo or Modern Gazebo can be found [here](https://neobotix-docs.de/ros/ros2/simulation_classic.html) or [here](https://neobotix-docs.de/ros/ros2/simulation_modern.html), respectively.
 
 ## Fixed Manipulators
 * Universal Robots [[Official page](https://www.universal-robots.com) | [Github](https://github.com/ros-industrial/universal_robot)]
+    * Installed in the default (core) workspace under `/opt/ros/humble`.
     * To simulate UR robots, run the command `ros2 launch ur_description view_ur.launch.py ur_type:=ur5e` or `ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5e launch_rviz:=true`, as documented in their [manual](https://docs.ros.org/en/ros2_packages/humble/api/ur_robot_driver/usage.html#usage-with-official-ur-simulator).
     * The supported ur_type values are: ur3, ur3e, ur5, ur5e, ur10, ur10e, ur16e, ur20, ur30
+* Franka [[Official page](https://franka.de) | [Github](https://github.com/frankarobotics/franka_ros2)]
+    * Installed from source under its own workspace `/home/ubuntu/franka_ros2_ws` (sourced automatically in `~/.bashrc`)
+    * Details on how to run the robot in simulation can be found [here](https://github.com/frankarobotics/franka_ros2/blob/humble/franka_gazebo/README.md)
+* Doosan Robots [[Official page](https://www.doosanrobotics.com) | [Github](https://github.com/DoosanRobotics/doosan-robot2)]
+    * Installed from source under its own workspace `/home/ubuntu/doosan_ws` (sourced automatically in `~/.bashrc`)
+    * For Gazebo simulation, run `ros2 launch dsr_gazebo2 dsr_gazebo.launch.py`. More details can be found [here](https://github.com/DoosanRobotics/doosan-robot2) and [here](https://github.com/DoosanRobotics/doosan-robot2/tree/humble/dsr_gazebo2)
+
+## Humanoid Robots
+* TIAGo [[Official page](https://pal-robotics.com) | [Github](https://github.com/pal-robotics/tiago_simulation)]
+    * Installed from source under its own workspace `/home/ubuntu/tiago_ws` (sourced automatically in `~/.bashrc`)
+    * Details on how to run the robot in simulation can be found [here](https://github.com/pal-robotics/tiago_simulation)
 
 # Utilities
 To facilitate working from within the docker image, it is loaded with a few useful utilities. 
 
 ## Text Editors
-* Linux' iconic text editors vi, vim, and Emacs, along with VSCodium. 
+* Linux' iconic text editors vi, vim, and Emacs, along with Featherpad and VSCodium. doublecmd-qt
 
 ## Terminal Emulators
 The image comes with a few standard Linux terminals, such as `XTerm`, `UXTerm`, and `Xfce Terminal`, which can be accessed through the *System* submenu under the *Applications* menu. However, when dealing with ROS, it might be more convenient to use multi-pane terminals. The following two are provided for this purpose. Although they offer many features, you will probably mostly be interested in adding and removing panes.
@@ -226,6 +239,9 @@ The image comes with a few standard Linux terminals, such as `XTerm`, `UXTerm`, 
 ## Document Viewers
 * Evince (document viewer; e.g., pdf, ps, djvu, tiff, dvi, and more)
 * Viewnior (image viewer)
+
+## File Managers
+* Double Commander (a dual-panel file manager)
 
 ## FTP Clients
 * [FileZilla](https://filezilla-project.org)
