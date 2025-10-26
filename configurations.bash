@@ -35,6 +35,11 @@ export _colcon_cd_root=/opt/ros/humble/
 ### Aliases
 alias ros2pkgcreate="ros2 pkg create --build-type ament_python --license Apache-2.0"
 
+
+### Add site-packages to PYTHONPATH
+export PYTHONPATH="$ROS2_WS/src/course_dir/site-packages:$PYTHONPATH"
+
+
 # enable color support of ls and also add handy aliases
 # https://askubuntu.com/questions/17299/what-do-the-different-colors-mean-in-ls
 if [ -x /usr/bin/dircolors ]; then
